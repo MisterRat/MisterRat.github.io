@@ -68,21 +68,21 @@ h1{
 .grid{display:grid; gap:20px; grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
 
 /* chamfered shield-style card with a fire-to-volt border */
-a.card{
+.card{
   --cut:18px; position:relative; display:flex; flex-direction:column; text-align:left; text-decoration:none; color:inherit;
   padding:2px; border-radius:2px; isolation:isolate;
   clip-path:polygon(var(--cut) 0,100% 0,100% calc(100% - var(--cut)),calc(100% - var(--cut)) 100%,0 100%,0 var(--cut));
   background:linear-gradient(135deg,var(--ember),var(--fire) 35%,var(--violet) 70%,var(--volt));
   transition:transform .18s ease, filter .18s ease;
 }
-a.card .in{
+.card .in{
   flex:1; display:flex; flex-direction:column; gap:10px; padding:22px 22px 20px;
   clip-path:polygon(calc(var(--cut) - 1px) 0,100% 0,100% calc(100% - var(--cut) + 1px),calc(100% - var(--cut) + 1px) 100%,0 100%,0 calc(var(--cut) - 1px));
   background:
     radial-gradient(420px 160px at 0% 0%, rgba(255,110,30,.16), transparent 70%),
     linear-gradient(180deg,var(--panel2),var(--panel));
 }
-a.card:hover,a.card:focus-visible{transform:translateY(-4px); filter:drop-shadow(0 0 16px rgba(255,110,30,.5)) drop-shadow(0 0 28px rgba(51,184,255,.25)); outline:none}
+.card:hover,.card:focus-within{transform:translateY(-4px); filter:drop-shadow(0 0 16px rgba(255,110,30,.5)) drop-shadow(0 0 28px rgba(51,184,255,.25)); outline:none}
 .ico{width:46px; height:46px; color:var(--gold); filter:drop-shadow(0 0 8px rgba(255,150,40,.7))}
 .card h2{
   margin:0; font-family:Impact,"Arial Narrow Bold","Bahnschrift",system-ui,sans-serif; font-weight:900; font-size:1.55rem; letter-spacing:.05em; text-transform:uppercase;
@@ -97,14 +97,26 @@ a.card:hover,a.card:focus-visible{transform:translateY(-4px); filter:drop-shadow
   clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);
   box-shadow:0 0 18px rgba(255,120,30,.6);
 }
-a.card:hover .play{background:linear-gradient(180deg,#fff0bf,var(--gold))}
+.card:hover .play,.play:focus-visible{background:linear-gradient(180deg,#fff0bf,var(--gold))}
+
+.stretch{color:inherit; text-decoration:none; outline:none}
+.stretch::after{content:""; position:absolute; inset:0; z-index:1}
+.actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:6px; position:relative; z-index:2}
+.actions a{text-decoration:none}
+.actions .play{margin-top:0}
+.readme{
+  padding:8px 22px; font-weight:800; font-size:.85rem; letter-spacing:.2em; text-transform:uppercase; color:#e8f6ff;
+  border:1px solid var(--volt); background:linear-gradient(180deg,rgba(51,184,255,.18),rgba(51,184,255,.06));
+  box-shadow:inset 0 0 12px rgba(51,184,255,.15); transition:background .18s, box-shadow .18s, color .18s;
+}
+.readme:hover,.readme:focus-visible{background:linear-gradient(180deg,rgba(51,184,255,.38),rgba(51,184,255,.14)); box-shadow:0 0 18px rgba(51,184,255,.55), inset 0 0 12px rgba(51,184,255,.2); color:#fff; outline:none}
 
 footer{position:relative; z-index:1; max-width:880px; margin:34px auto 0; padding:22px 18px 40px; text-align:center; color:var(--muted); font-size:.82rem; border-top:1px solid var(--line)}
 footer a{color:#8fd4ff; text-decoration:none; border-bottom:1px dotted rgba(143,212,255,.5)}
 footer a:hover{color:#fff}
 footer .est{display:block; margin-top:6px; letter-spacing:.2em; font-size:.75rem; color:#5d6a80}
 
-@media (prefers-reduced-motion:reduce){.logo{animation:none} html{scroll-behavior:auto} a.card,.discord{transition:none}}
+@media (prefers-reduced-motion:reduce){.logo{animation:none} html{scroll-behavior:auto} .card,.discord{transition:none}}
 </style>
 </head>
 <body>
@@ -118,33 +130,33 @@ footer .est{display:block; margin-top:6px; letter-spacing:.2em; font-size:.75rem
 
   <div class="section">Choose your game</div>
   <div class="grid">
-    <a class="card" href="p51-mustang-fs/">
+    <div class="card">
       <div class="in">
         <svg class="ico" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M24 2c1.7 0 3 1.5 3 3.4V18l17 9.5v4L27 28v9l6 4.5V45l-9-2.2L15 45v-3.5l6-4.5v-9L4 31.500v-4L21 18V5.400C21 3.500 22.300 2 24 2z"/></svg>
-        <h2>P-51D Mustang Flight Sim</h2>
+        <h2><a class="stretch" href="p51-mustang-fs/">P-51D Mustang Flight Sim</a></h2>
         <p>Fly the legendary P-51D over land and sea. Take off, land on the ILS, strafe convoys and dogfight, with optional hardcore realism.</p>
         <div class="chips"><span>Flight sim</span><span>Keyboard</span><span>Gamepad</span><span>Phone</span></div>
-        <span class="play">Play now</span>
+        <div class="actions"><a class="play" href="p51-mustang-fs/">Play now</a><a class="readme" href="https://github.com/MisterRat/p51-mustang-fs#readme" target="_blank" rel="noopener noreferrer">README</a></div>
       </div>
-    </a>
-    <a class="card" href="FATED/">
+    </div>
+    <div class="card">
       <div class="in">
         <svg class="ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><circle cx="24" cy="24" r="14"/><circle cx="24" cy="24" r="3" fill="currentColor"/><path d="M24 4v10M24 34v10M4 24h10M34 24h10"/></svg>
-        <h2>FATED</h2>
+        <h2><a class="stretch" href="FATED/">FATED</a></h2>
         <p>A fast, Doom-inspired first-person shooter in a single HTML file. Pick your weapon and fight your way through.</p>
         <div class="chips"><span>FPS</span><span>Retro</span><span>Browser</span></div>
-        <span class="play">Play now</span>
+        <div class="actions"><a class="play" href="FATED/">Play now</a><a class="readme" href="https://github.com/MisterRat/FATED#readme" target="_blank" rel="noopener noreferrer">README</a></div>
       </div>
-    </a>
-    <a class="card" href="Ratland-Defense/">
+    </div>
+    <div class="card">
       <div class="in">
         <svg class="ico" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M10 6h6v5h5V6h6v5h5V6h6v12l-4 4v16h4v6H8v-6h4V22l-4-4V6h2zm11 22v10h6V28a3 3 0 0 0-6 0z"/></svg>
-        <h2>Ratland Defense</h2>
+        <h2><a class="stretch" href="Ratland-Defense/">Ratland Defense</a></h2>
         <p>Hold the line against waves of invaders. Build and upgrade 13 kinds of towers, counter each enemy's tricks, and design your own maps in the level generator.</p>
         <div class="chips"><span>Tower defense</span><span>Strategy</span><span>Mouse</span></div>
-        <span class="play">Play now</span>
+        <div class="actions"><a class="play" href="Ratland-Defense/">Play now</a><a class="readme" href="https://github.com/MisterRat/Ratland-Defense#readme" target="_blank" rel="noopener noreferrer">README</a></div>
       </div>
-    </a>
+    </div>
   </div>
 </main>
 <footer>
