@@ -3,16 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MisterRat Games</title>
-<meta name="description" content="Single-file browser games by MisterRat.">
+<title>MrRat Gaming</title>
+<link rel="icon" href="logo.jpg">
+<meta name="description" content="MrRat Gaming: single-file browser games, free for noncommercial use.">
 <style>
 :root{--bg:#0e1117;--card:#161b24;--line:#262d3a;--text:#e8ecf2;--muted:#9aa5b5;--accent:#f0a23b}
 @media (prefers-color-scheme:light){:root{--bg:#f4f1ea;--card:#fffdf8;--line:#ddd6c8;--text:#1d2430;--muted:#5d6878;--accent:#b8650a}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
-main{max-width:760px;margin:0 auto;padding:56px 16px}
+main{max-width:760px;margin:0 auto;padding:40px 16px;text-align:center}
+.logo{width:min(260px,60vw);aspect-ratio:1;border-radius:50%;overflow:hidden;margin:0 auto 16px;box-shadow:0 0 40px rgba(240,120,40,.35)}
+.logo img{width:100%;height:100%;display:block;transform:scale(1.14)}
 h1{margin:0 0 4px;font-size:2rem;letter-spacing:.02em}
 .sub{color:var(--muted);margin:0 0 32px}
+.card{text-align:left}
 .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
 a.card{display:block;padding:20px;background:var(--card);border:1px solid var(--line);border-radius:12px;color:inherit;text-decoration:none;transition:border-color .15s,transform .15s}
 a.card:hover,a.card:focus-visible{border-color:var(--accent);transform:translateY(-2px);outline:none}
@@ -24,7 +28,8 @@ footer a{color:var(--muted)}
 </head>
 <body>
 <main>
-<h1>MisterRat Games</h1>
+<div class="logo"><img src="logo.jpg" alt="MrRat Gaming logo"></div>
+<h1>MrRat Gaming</h1>
 <p class="sub">Single-file games that run in your browser. No installs.</p>
 <div class="grid">
 <a class="card" href="p51-mustang-fs/">
