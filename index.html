@@ -6,42 +6,169 @@
 <title>MrRat Gaming</title>
 <link rel="icon" href="logo.jpg">
 <meta name="description" content="MrRat Gaming: single-file browser games, free for noncommercial use.">
+<meta name="theme-color" content="#07090f">
 <style>
-:root{--bg:#0e1117;--card:#161b24;--line:#262d3a;--text:#e8ecf2;--muted:#9aa5b5;--accent:#f0a23b}
-@media (prefers-color-scheme:light){:root{--bg:#f4f1ea;--card:#fffdf8;--line:#ddd6c8;--text:#1d2430;--muted:#5d6878;--accent:#b8650a}}
+:root{
+  --bg:#07090f; --panel:#0e131d; --panel2:#121a28;
+  --ember:#ff7a1a; --gold:#ffc04a; --fire:#e8431c;
+  --volt:#33b8ff; --violet:#8a5cff;
+  --steel:#dbe7f5; --muted:#8c9ab0; --line:#1d2738;
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
-main{max-width:760px;margin:0 auto;padding:40px 16px;text-align:center}
-.logo{width:min(260px,60vw);aspect-ratio:1;border-radius:50%;overflow:hidden;margin:0 auto 16px;box-shadow:0 0 40px rgba(240,120,40,.35)}
-.logo img{width:100%;height:100%;display:block;transform:scale(1.14)}
-h1{margin:0 0 4px;font-size:2rem;letter-spacing:.02em}
-.sub{color:var(--muted);margin:0 0 32px}
-.card{text-align:left}
-.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
-a.card{display:block;padding:20px;background:var(--card);border:1px solid var(--line);border-radius:12px;color:inherit;text-decoration:none;transition:border-color .15s,transform .15s}
-a.card:hover,a.card:focus-visible{border-color:var(--accent);transform:translateY(-2px);outline:none}
-.card h2{margin:0 0 6px;font-size:1.25rem;color:var(--accent)}
-.card p{margin:0;color:var(--muted);font-size:.95rem}
-footer{margin-top:40px;color:var(--muted);font-size:.85rem}
-footer a{color:var(--muted)}
+html{scroll-behavior:smooth}
+body{
+  margin:0; min-height:100vh; color:var(--steel);
+  font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  background:
+    radial-gradient(900px 520px at 50% -8%, rgba(255,110,30,.22), transparent 70%),
+    radial-gradient(700px 500px at 100% 40%, rgba(51,184,255,.10), transparent 70%),
+    radial-gradient(700px 500px at 0% 70%, rgba(232,67,28,.10), transparent 70%),
+    var(--bg);
+  overflow-x:hidden;
+}
+/* hex grid texture, like the logo's background */
+body::before{
+  content:""; position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='97' viewBox='0 0 56 97'%3E%3Cpath d='M28 1 55 16.5v31L28 63 1 47.5v-31zM28 63v33M1 47.5 0 48M55 47.5l1 .5' fill='none' stroke='%2333b8ff' stroke-opacity='.10' stroke-width='1'/%3E%3C/svg%3E");
+  -webkit-mask-image:radial-gradient(ellipse at 50% 30%, #000 20%, transparent 75%);
+          mask-image:radial-gradient(ellipse at 50% 30%, #000 20%, transparent 75%);
+}
+#embers{position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none}
+main{position:relative; z-index:1; max-width:880px; margin:0 auto; padding:44px 18px 28px; text-align:center}
+
+/* logo with a ring of fire and volt */
+.logo{
+  position:relative; width:min(280px,62vw); aspect-ratio:1; margin:0 auto 18px; border-radius:50%;
+  box-shadow:0 0 0 2px rgba(255,140,40,.55), 0 0 36px rgba(255,100,20,.55), 0 0 90px rgba(255,90,20,.25), 0 0 70px rgba(51,184,255,.18);
+  animation:pulse 4.5s ease-in-out infinite;
+}
+.logo img{width:100%; height:100%; display:block; border-radius:50%; transform:scale(1.14); clip-path:circle(44% at 50% 50%)}
+.logo{overflow:hidden}
+@keyframes pulse{50%{box-shadow:0 0 0 2px rgba(255,170,60,.8), 0 0 48px rgba(255,110,30,.75), 0 0 110px rgba(255,90,20,.35), 0 0 90px rgba(51,184,255,.25)}}
+
+h1{
+  margin:6px 0 2px; font-family:Impact,"Arial Narrow Bold","Bahnschrift",system-ui,sans-serif;
+  font-weight:900; font-size:clamp(2.4rem,8vw,4rem); letter-spacing:.03em; line-height:1.05;
+  background:linear-gradient(180deg,#fff 0%,#dbe7f5 45%,#7fa6d4 55%,#c9dcf2 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  filter:drop-shadow(0 2px 0 #0a3a66) drop-shadow(0 0 14px rgba(51,184,255,.35));
+}
+.tag{
+  display:inline-block; margin:6px 0 10px; padding:3px 16px; font-size:.78rem; letter-spacing:.32em; text-transform:uppercase; color:var(--gold);
+  border-top:1px solid rgba(255,190,80,.5); border-bottom:1px solid rgba(255,190,80,.5);
+}
+.sub{color:var(--muted); margin:0 auto 38px; max-width:34rem}
+
+.section{display:flex; align-items:center; gap:14px; margin:0 0 18px; color:var(--muted); font-size:.8rem; letter-spacing:.3em; text-transform:uppercase}
+.section::before,.section::after{content:""; flex:1; height:1px; background:linear-gradient(90deg,transparent,var(--ember),transparent); opacity:.55}
+
+.grid{display:grid; gap:20px; grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+
+/* chamfered shield-style card with a fire-to-volt border */
+a.card{
+  --cut:18px; position:relative; display:flex; flex-direction:column; text-align:left; text-decoration:none; color:inherit;
+  padding:2px; border-radius:2px; isolation:isolate;
+  clip-path:polygon(var(--cut) 0,100% 0,100% calc(100% - var(--cut)),calc(100% - var(--cut)) 100%,0 100%,0 var(--cut));
+  background:linear-gradient(135deg,var(--ember),var(--fire) 35%,var(--violet) 70%,var(--volt));
+  transition:transform .18s ease, filter .18s ease;
+}
+a.card .in{
+  flex:1; display:flex; flex-direction:column; gap:10px; padding:22px 22px 20px;
+  clip-path:polygon(calc(var(--cut) - 1px) 0,100% 0,100% calc(100% - var(--cut) + 1px),calc(100% - var(--cut) + 1px) 100%,0 100%,0 calc(var(--cut) - 1px));
+  background:
+    radial-gradient(420px 160px at 0% 0%, rgba(255,110,30,.16), transparent 70%),
+    linear-gradient(180deg,var(--panel2),var(--panel));
+}
+a.card:hover,a.card:focus-visible{transform:translateY(-4px); filter:drop-shadow(0 0 16px rgba(255,110,30,.5)) drop-shadow(0 0 28px rgba(51,184,255,.25)); outline:none}
+.ico{width:46px; height:46px; color:var(--gold); filter:drop-shadow(0 0 8px rgba(255,150,40,.7))}
+.card h2{
+  margin:0; font-family:Impact,"Arial Narrow Bold","Bahnschrift",system-ui,sans-serif; font-weight:900; font-size:1.55rem; letter-spacing:.05em; text-transform:uppercase;
+  background:linear-gradient(180deg,#fff2c9,var(--gold) 50%,var(--ember)); -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.card p{margin:0; color:#b4c0d2; font-size:.95rem; flex:1}
+.chips{display:flex; flex-wrap:wrap; gap:6px; margin-top:2px}
+.chips span{font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; padding:2px 8px; border:1px solid rgba(51,184,255,.4); color:#8fd4ff; background:rgba(51,184,255,.07)}
+.play{
+  align-self:flex-start; margin-top:6px; padding:8px 22px; font-weight:800; font-size:.85rem; letter-spacing:.2em; text-transform:uppercase; color:#1a0b00;
+  background:linear-gradient(180deg,var(--gold),var(--ember)); 
+  clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);
+  box-shadow:0 0 18px rgba(255,120,30,.6);
+}
+a.card:hover .play{background:linear-gradient(180deg,#fff0bf,var(--gold))}
+
+footer{position:relative; z-index:1; max-width:880px; margin:34px auto 0; padding:22px 18px 40px; text-align:center; color:var(--muted); font-size:.82rem; border-top:1px solid var(--line)}
+footer a{color:#8fd4ff; text-decoration:none; border-bottom:1px dotted rgba(143,212,255,.5)}
+footer a:hover{color:#fff}
+footer .est{display:block; margin-top:6px; letter-spacing:.2em; font-size:.75rem; color:#5d6a80}
+
+@media (prefers-reduced-motion:reduce){.logo{animation:none} html{scroll-behavior:auto} a.card{transition:none}}
 </style>
 </head>
 <body>
+<canvas id="embers" aria-hidden="true"></canvas>
 <main>
-<div class="logo"><img src="logo.jpg" alt="MrRat Gaming logo"></div>
-<h1>MrRat Gaming</h1>
-<p class="sub">Single-file games that run in your browser. No installs.</p>
-<div class="grid">
-<a class="card" href="p51-mustang-fs/">
-<h2>P-51D Mustang Flight Sim</h2>
-<p>Fly the P-51D over land and sea. Missions, weather, optional hardcore realism. Keyboard, gamepad or phone.</p>
-</a>
-<a class="card" href="FATED/">
-<h2>FATED</h2>
-<p>A Doom-inspired first-person shooter in one HTML file.</p>
-</a>
-</div>
-<footer>Free for noncommercial use. Source on <a href="https://github.com/MisterRat">GitHub</a>.</footer>
+  <div class="logo"><img src="logo.jpg" alt="MrRat Gaming logo"></div>
+  <h1>MrRat Gaming</h1>
+  <div class="tag">Gaming Community</div>
+  <p class="sub">Single-file games that run right in your browser. No installs, no sign-ups.</p>
+
+  <div class="section">Choose your game</div>
+  <div class="grid">
+    <a class="card" href="p51-mustang-fs/">
+      <div class="in">
+        <svg class="ico" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M24 2c1.7 0 3 1.5 3 3.4V18l17 9.5v4L27 28v9l6 4.5V45l-9-2.2L15 45v-3.5l6-4.5v-9L4 31.500v-4L21 18V5.400C21 3.500 22.300 2 24 2z"/></svg>
+        <h2>P-51D Mustang Flight Sim</h2>
+        <p>Fly the legendary P-51D over land and sea. Take off, land on the ILS, strafe convoys and dogfight, with optional hardcore realism.</p>
+        <div class="chips"><span>Flight sim</span><span>Keyboard</span><span>Gamepad</span><span>Phone</span></div>
+        <span class="play">Play now</span>
+      </div>
+    </a>
+    <a class="card" href="FATED/">
+      <div class="in">
+        <svg class="ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><circle cx="24" cy="24" r="14"/><circle cx="24" cy="24" r="3" fill="currentColor"/><path d="M24 4v10M24 34v10M4 24h10M34 24h10"/></svg>
+        <h2>FATED</h2>
+        <p>A fast, Doom-inspired first-person shooter in a single HTML file. Pick your weapon and fight your way through.</p>
+        <div class="chips"><span>FPS</span><span>Retro</span><span>Browser</span></div>
+        <span class="play">Play now</span>
+      </div>
+    </a>
+  </div>
 </main>
+<footer>
+  Free for noncommercial use. Commercial use needs written permission.<br>
+  Source and licences on <a href="https://github.com/MisterRat">GitHub</a>.
+  <span class="est">MrRat Gaming &middot; Est. 2024</span>
+</footer>
+<script>
+/* drifting embers: a light canvas effect, off when the visitor prefers reduced motion */
+(function () {
+  var c = document.getElementById('embers');
+  if (!c || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+  var x = c.getContext('2d'), w, h, dpr = Math.min(window.devicePixelRatio || 1, 2), P = [];
+  function size() { w = innerWidth; h = innerHeight; c.width = w * dpr; c.height = h * dpr; x.setTransform(dpr, 0, 0, dpr, 0, 0); }
+  function mk(initial) {
+    return { x: Math.random() * w, y: initial ? Math.random() * h : h + 10, r: 0.6 + Math.random() * 1.8,
+      v: 0.25 + Math.random() * 0.8, s: Math.random() * 6.28, a: 0.25 + Math.random() * 0.6, blue: Math.random() < 0.12 };
+  }
+  size(); addEventListener('resize', size);
+  var n = Math.round(Math.min(70, Math.max(24, w / 22)));
+  for (var i = 0; i < n; i++) P.push(mk(true));
+  function tick() {
+    x.clearRect(0, 0, w, h);
+    for (var i = 0; i < P.length; i++) {
+      var p = P[i];
+      p.y -= p.v; p.s += 0.02; p.x += Math.sin(p.s) * 0.35;
+      if (p.y < -10) P[i] = mk(false);
+      var f = Math.min(1, p.y / (h * 0.6));
+      x.beginPath(); x.arc(p.x, p.y, p.r, 0, 6.283);
+      x.fillStyle = p.blue ? 'rgba(80,190,255,' + (p.a * f) + ')' : 'rgba(255,' + (120 + (p.a * 120 | 0)) + ',40,' + (p.a * f) + ')';
+      x.shadowBlur = 8; x.shadowColor = p.blue ? '#33b8ff' : '#ff7a1a';
+      x.fill();
+    }
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+</script>
 </body>
 </html>
